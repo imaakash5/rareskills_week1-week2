@@ -1,0 +1,20 @@
+[profile.default]
+contracts       = 'contracts'             # The source directory
+test            = 'tests'                  # The test directory
+libs            = ['modules']             # A list of library directories
+optimizer       = false                   # Enable or disable the solc optimizer
+optimizer_runs  = 200                     # The number of optimizer runs
+verbosity       = 3                       # The verbosity of tests
+block_timestamp = 1_685_721_539           # Timestamp for tests (non-zero)
+gas_limit       = "18446744073709551615"  # Gas limit for tests
+
+[profile.production]
+optimizer = true
+
+[profile.mainnet]
+rpc_url="https://1rpc.io/base"
+private_key="331c6efc86ed792c094ddf3a7d37d1552d9d652cd285e865e13a6db56c666420"
+
+[fuzz]
+runs = 100
+
