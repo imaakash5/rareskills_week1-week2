@@ -4,7 +4,7 @@ pragma solidity 0.8.23;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/common/ERC2981.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/interfaces/IERC165.sol";
+
 
 
 contract NFTRoyalty is ERC721, ERC2981, Ownable {
