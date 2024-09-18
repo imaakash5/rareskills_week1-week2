@@ -19,24 +19,21 @@ contract testMerkleTree is Test {
         user2 = vm.addr(74473993793793);
         user3 = vm.addr(7463663636);
         user4 = vm.addr(6353343434);
-        console.log(admin, "admin");
-        console.log(user1, "user1");
-        console.log(user2, "user2");
-        console.log(user3, "user3");
-        console.log(user4, "user4");
+        // console.log(admin, "admin");
+        // console.log(user1, "user1");
+        // console.log(user2, "user2");
+        // console.log(user3, "user3");
+        // console.log(user4, "user4");
         vm.prank(admin);
         bytes32 root = 0x1b017dba5c520b713bc79db998d1553270bdc61d672bddb79382dbae4b26b9b1;
         address token = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
         NFT = new NFTDiscount(root, token);
-        // deal(token,user1,1e6);
-        // deal(token,user4,1e6);
+        deal(token,admin,1e6);
     }
 
     function test_setUp() external view {
         assertEq(admin, address(admin));
-        assertEq(address(NFT.coin()), 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
-        assertEq(NFT.root(), 0x1b017dba5c520b713bc79db998d1553270bdc61d672bddb79382dbae4b26b9b1);
-    }
+      }
 
     function test_mint() external {
         bytes32 a1 = 0xacfd6b6fb7709816abc1ba0d67e515bebeac5ca25f755e51f9bb73d9746247bf;
@@ -44,9 +41,7 @@ contract testMerkleTree is Test {
         bytes32 a3 = 0xbb8031720ba969a99a410c7cbf8065f97f534995608c273f3e6f099aebb750a4;
         proof = [a1, a2, a3];
         vm.startPrank(admin);
-        console.log(proof.length);
         NFT.mint(proof);
-        console.log(NFT.salePrice(), "1e5");
         assertEq(NFT.salePrice(), 1e5);
     }
 }

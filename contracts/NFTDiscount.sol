@@ -9,13 +9,13 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {console, Test} from "forge-std/Test.sol";
 
 contract NFTDiscount is ERC721, ERC2981, Ownable {
-    bytes32 public root;
-    IERC20 public coin;
+    bytes32 private root;
+    IERC20 private coin;
     uint256 public salePrice = 10e6; //fixing at 10USDC
     uint256 private discount = 100; //1% - 1pm
     uint256 private constant maxSupply = 20;
     uint256 public totalSupply = 0;
-    mapping(uint256 => bool) hasMinted;
+    mapping(uint256 => bool) private hasMinted;
 
     constructor(bytes32 root_, address token) ERC721("NFT with Royalties", "NFT") Ownable(msg.sender) {
         coin = IERC20(token);
@@ -26,15 +26,12 @@ contract NFTDiscount is ERC721, ERC2981, Ownable {
     function mint(bytes32[] memory proof) external {
         salePrice = 10e6;
         require(msg.sender != address(0), "Invalid caller");
-        require(!hasMinted[totalSupply],"Already minted"); //required when the same user can not mint again
+        require(!hasMinted[totalSupply],"Already minted"); 
         (bool isAddressEligibleForDiscount) = MerkleProof.verify(proof, root, keccak256(abi.encodePacked(msg.sender)));
-        console.log(isAddressEligibleForDiscount, "address present");
-        console.log(salePrice);
         if (isAddressEligibleForDiscount) {
             uint256 changedSalePrice = (discount * salePrice) / 10000;
-            salePrice = changedSalePrice;
-        }
-        //require(coin.balanceOf(msg.sender)>=salePrice,"Insufficient Balance");
+            salePrice = changedSalePrice;}
+        require(coin.balanceOf(msg.sender)>=salePrice,"Insufficient Balance");
         require(totalSupply < maxSupply);
         hasMinted[totalSupply]= true;
         _mint(msg.sender, totalSupply);
