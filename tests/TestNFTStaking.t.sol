@@ -27,7 +27,7 @@ contract TestNFTStaking is Test {
         NFTToken.mint(1);
         vm.stopPrank();
         assertEq(NFTToken.balanceOf(admin), 1);
-         }
+    }
 
     function test_sendTokensAndWithdrawERC20Tokens() external {
         vm.startPrank(admin);
@@ -47,13 +47,13 @@ contract TestNFTStaking is Test {
         vm.prank(admin);
         token.withdrawERC20Tokens(1);
         assertEq(token.balanceOf(admin), 10e6);
-        //tokenId check if not exists 
+        //tokenId check if not exists
         vm.prank(user2);
         vm.expectRevert();
         token.withdrawERC20Tokens(234);
-       }
+    }
 
-    function test_withdrawNFTTokens() external{
+    function test_withdrawNFTTokens() external {
         vm.startPrank(admin);
         NFTToken.mint(0);
         NFTToken.mint(1);
@@ -65,15 +65,15 @@ contract TestNFTStaking is Test {
         /*other than owner can not send token*/
         vm.startPrank(user2);
         vm.expectRevert();
-        NFTToken.sendTokens(1); 
+        NFTToken.sendTokens(1);
         vm.stopPrank();
         vm.startPrank(admin);
-        NFTToken.sendTokens(1); 
+        NFTToken.sendTokens(1);
         assertEq(NFTToken.balanceOf(admin), 5);
         vm.stopPrank();
         //other than owner could not withdraw NFT tokens
         vm.startPrank(user1);
-        vm.expectRevert(); 
+        vm.expectRevert();
         NFTToken.withdrawNFT(1);
     }
 }

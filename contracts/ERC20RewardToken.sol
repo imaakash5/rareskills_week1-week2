@@ -26,7 +26,7 @@ contract Token is ERC20, Ownable, IERC721Receiver {
     }
 
     function withdrawERC20Tokens(uint256 tokenId) external {
-        require(originalOwner[tokenId]!=address(0),"tokenId not present in this contract");
+        require(originalOwner[tokenId] != address(0), "tokenId not present in this contract");
         require(originalOwner[tokenId] == msg.sender, "not a original NFT token owner");
         require(
             block.timestamp - lastWithdrawnTime[msg.sender] >= completed24Hours, "one withdrawal per day is allowed"
