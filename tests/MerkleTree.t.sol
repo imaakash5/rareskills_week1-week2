@@ -28,12 +28,12 @@ contract testMerkleTree is Test {
         bytes32 root = 0x1b017dba5c520b713bc79db998d1553270bdc61d672bddb79382dbae4b26b9b1;
         address token = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
         NFT = new NFTDiscount(root, token);
-        deal(token,admin,1e6);
+        deal(token, admin, 1e6);
     }
 
     function test_setUp() external view {
         assertEq(admin, address(admin));
-      }
+    }
 
     function test_mint() external {
         bytes32 a1 = 0xacfd6b6fb7709816abc1ba0d67e515bebeac5ca25f755e51f9bb73d9746247bf;

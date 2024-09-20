@@ -26,14 +26,15 @@ contract NFTDiscount is ERC721, ERC2981, Ownable {
     function mint(bytes32[] memory proof) external {
         salePrice = 10e6;
         require(msg.sender != address(0), "Invalid caller");
-        require(!hasMinted[totalSupply],"Already minted"); 
+        require(!hasMinted[totalSupply], "Already minted");
         (bool isAddressEligibleForDiscount) = MerkleProof.verify(proof, root, keccak256(abi.encodePacked(msg.sender)));
         if (isAddressEligibleForDiscount) {
             uint256 changedSalePrice = (discount * salePrice) / 10000;
-            salePrice = changedSalePrice;}
-        require(coin.balanceOf(msg.sender)>=salePrice,"Insufficient Balance");
+            salePrice = changedSalePrice;
+        }
+        require(coin.balanceOf(msg.sender) >= salePrice, "Insufficient Balance");
         require(totalSupply < maxSupply);
-        hasMinted[totalSupply]= true;
+        hasMinted[totalSupply] = true;
         _mint(msg.sender, totalSupply);
         totalSupply++;
     }
@@ -44,7 +45,7 @@ contract NFTDiscount is ERC721, ERC2981, Ownable {
 
     function setRoyaltyInfo() external view onlyOwner {
         for (uint256 i = 0; i < totalSupply; i++) {
-             royaltyInfo(i, salePrice);
+            royaltyInfo(i, salePrice);
         }
     }
 

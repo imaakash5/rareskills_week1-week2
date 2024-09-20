@@ -22,7 +22,7 @@ contract NFTRoyalty is ERC721, ERC2981, Ownable {
 
     function checkRoyaltyForTokens() external view onlyOwner {
         for (uint256 i = 0; i < totalSupply; i++) {
-            (address royaltyReceiver, uint256 royaltyAmount) = royaltyInfo(i, 10e6);
+            royaltyInfo(i, 10e6);
         }
     }
 
