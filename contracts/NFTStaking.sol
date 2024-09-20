@@ -3,7 +3,7 @@ pragma solidity 0.8.23;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-
+import {Test,console} from "forge-std/Test.sol";
 
 contract NFT is ERC721, Ownable {
     uint256 private MAX_SUPPLY = 20;
@@ -16,13 +16,16 @@ contract NFT is ERC721, Ownable {
     }
 
     function withdrawNFT(uint256 tokenId) external {
+        require(originalOwner[tokenId]!=address(0),"TokenId not exists");
         require(originalOwner[tokenId] == msg.sender, "not a original owner");
+        _approve(msg.sender,tokenId,address(token));
         safeTransferFrom(address(token), msg.sender, tokenId);
     }
 
-    function sendTokens(uint256 tokenId, address from, address to) external {
-        require(originalOwner[tokenId] == from, "not the owner");
-        safeTransferFrom(from, to , tokenId);
+    function sendTokens(uint256 tokenId) external {
+        require(originalOwner[tokenId] == msg.sender, "not the owner");
+        _approve(address(token),tokenId,msg.sender);
+        safeTransferFrom(msg.sender,address(token) , tokenId);
     }
 
     function mint(uint256 tokenId) external onlyOwner {
