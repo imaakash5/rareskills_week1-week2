@@ -8,9 +8,8 @@ contract NFTEnumerable is ERC721Enumerable {
     uint64 private MAX_SUPPLY = 20;
 
     constructor() ERC721("NFTEnumerableProMAX", "NFTENML") {
-       for(uint64 i=1;i<=MAX_SUPPLY;i++){
-        _safeMint(msg.sender, i);
+        for (uint64 i = 1; i <= MAX_SUPPLY; i++) {
+            _safeMint(msg.sender, i);
         }
     }
-
 }

@@ -2,13 +2,13 @@
 pragma solidity 0.8.23;
 
 import {NFTEnumerable} from "../contracts/NFTEnumerable.sol";
-import {console,Test} from "forge-std/Test.sol";
+import {console, Test} from "forge-std/Test.sol";
 
-contract TestNFT is Test{
+contract TestNFT is Test {
     address public admin;
     NFTEnumerable public NFTTokens;
 
-    function setUp() external{
+    function setUp() external {
         admin = vm.addr(134556);
         vm.expectRevert();
         NFTTokens = new NFTEnumerable();
@@ -16,7 +16,7 @@ contract TestNFT is Test{
         NFTTokens = new NFTEnumerable();
     }
 
-    function test_setUp() view external{
+    function test_setUp() external view {
         uint256 totalSupply = NFTTokens.totalSupply();
         assertEq(totalSupply, 20);
     }
