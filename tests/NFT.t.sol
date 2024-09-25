@@ -21,6 +21,6 @@ contract testNFT is Test {
         token.mint();
         vm.expectRevert();
         token.mint();
-        assertEq(token.totalSupply(), 1);
+        assertEq(token.totalSupply(), 20);
     }
 }

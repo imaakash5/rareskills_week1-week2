@@ -4,7 +4,7 @@ pragma solidity 0.8.23;
 import {console, Test} from "forge-std/Test.sol";
 import {NFTDiscount} from "../contracts/NFTDiscount.sol";
 
-contract testMerkleTree is Test {
+contract TestMerkleTree is Test {
     address public admin;
     address public user1;
     address public user2;
